@@ -48,6 +48,9 @@ public class MyBatisDAOEntradaForo implements DaoEntradaForo{
         List<EntradaForo> ef= e.getEntradasForo();
         currentSession.commit();
        return ef;
+
+        
+
     }
 
     @Override
