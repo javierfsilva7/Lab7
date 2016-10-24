@@ -7,7 +7,7 @@
 
 
     <select id="getEntradasForo" resultMap="EntradaForoResult">
-        select ef.id, ef.fecha_hora, ef.contenido, cm.id as id, cm.fecha_hora as fecha_hora, cm.contenido as contenido, autor.nombre as nombre, autor.email as email, autorcom.nombre as nombre,  autorcom.email as email
+        select ef.id, ef.fecha_hora, ef.contenido, cm.id as cm_id, cm.fecha_hora as cm_fecha_hora, cm.contenido as cm_contenido, autor.nombre as nombre, autor.email as email, autorcom.nombre as cm_nombre,  autorcom.email as cm_email
         from ENTRADAS_FOROS as ef 
         INNER JOIN COMENTARIOS as cm ON ef.`id` = cm.`ENTRADAS_FOROS_id` 
         INNER JOIN USUARIOS as autor ON autor.email=ef.USUARIOS_email
@@ -15,25 +15,26 @@
     </select>	
     
     <resultMap type='EntradaForo' id='EntradaForoResult'>
-        <id property='id' column='id'/>
-        <result property='fecha_hora' column='fecha_hora'/>
-        <result property='contenido' column='contenido'/>  
-        <collection property='comentario' ofType='COMENTARIOS'></collection>
-        <association property="usuario" javaType="USUARIOS"></association>      
+        <id property='identificador' column='id'/>
+        <result property='fechayHora' column='fecha_hora'/>
+        <result property='comentario' column='contenido'/>  
+        <association property="autor" javaType="usuario"></association>
+        <collection property='respuestas' ofType='comentario' resultMap="ComentarioResult" columnPrefix="cm_"></collection>
+              
     </resultMap>
 
-    <resultMap type='COMENTARIOS' id='ComentarioResult'>
-        <id property='id' column='id'/>
-        <result property='fecha_hora' column='fecha_hora'/>
-        <result property='contenido' column='contenido'/> 
-        <association property="ENTRADAS_FOROS" javaType="ENTRADAS_FOROS"/>    
+    <resultMap type='Comentario' id='ComentarioResult'>
+        <id property='id' column='cm_id'/>
+        <result property='fechayHora' column='cm_fecha_hora'/>
+        <result property='contenido' column='cm_contenido'/> 
+        <association property="autor" javaType="usuario"/>    
     </resultMap>
 
-    <resultMap type='USUARIOS' id='UsuarioResult'>
+    <resultMap type='usuario' id='UsuarioResult'>
         <id property='email' column='email'/>
         <result property='nombre' column='nombre'/>
     </resultMap>
 
-    
+   
   	
 </mapper>

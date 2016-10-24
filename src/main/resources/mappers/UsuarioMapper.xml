@@ -4,5 +4,17 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="edu.eci.pdsw.samples.persistence.mybatisimpl.mappers.UsuarioMapper">
-	                   	
+    
+    <select id="getUsuario" resultMap="UsuarioResult" parameterType="map">
+        select nombre, email 
+        from USUARIOS 
+        WHERE email=#{emailusuario}
+    </select>	
+    
+    <resultMap type='usuario' id='UsuarioResult'>
+        <id property='email' column='email'/>
+        <result property='nombre' column='nombre'/>
+        
+    </resultMap>
+    
 </mapper>

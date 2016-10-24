@@ -19,6 +19,7 @@ package edu.eci.pdsw.samples.persistence;
 import edu.eci.pdsw.samples.entities.Comentario;
 import edu.eci.pdsw.samples.entities.EntradaForo;
 import edu.eci.pdsw.samples.entities.Usuario;
+import java.sql.PreparedStatement;
 import java.util.List;
 
 /**
@@ -30,6 +31,8 @@ public interface DaoEntradaForo {
     public EntradaForo load(int id) throws PersistenceException;
     
     public List<EntradaForo> loadAll() throws PersistenceException;
+        
+    
     
     public void save(EntradaForo e) throws PersistenceException;
     
