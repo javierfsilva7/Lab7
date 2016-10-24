@@ -4,8 +4,36 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="edu.eci.pdsw.samples.persistence.mybatisimpl.mappers.EntradaForoMapper">
-	
+
+
+    <select id="getEntradasForo" resultMap="EntradaForoResult">
+        select ef.id, ef.fecha_hora, ef.contenido, cm.id as id, cm.fecha_hora as fecha_hora, cm.contenido as contenido, autor.nombre as nombre, autor.email as email, autorcom.nombre as nombre,  autorcom.email as email
+        from ENTRADAS_FOROS as ef 
+        INNER JOIN COMENTARIOS as cm ON ef.`id` = cm.`ENTRADAS_FOROS_id` 
+        INNER JOIN USUARIOS as autor ON autor.email=ef.USUARIOS_email
+        INNER JOIN USUARIOS as autorcom ON autorcom.email=cm.USUARIOS_email
+    </select>	
     
+    <resultMap type='EntradaForo' id='EntradaForoResult'>
+        <id property='id' column='id'/>
+        <result property='fecha_hora' column='fecha_hora'/>
+        <result property='contenido' column='contenido'/>  
+        <collection property='comentario' ofType='COMENTARIOS'></collection>
+        <association property="usuario" javaType="USUARIOS"></association>      
+    </resultMap>
+
+    <resultMap type='COMENTARIOS' id='ComentarioResult'>
+        <id property='id' column='id'/>
+        <result property='fecha_hora' column='fecha_hora'/>
+        <result property='contenido' column='contenido'/> 
+        <association property="ENTRADAS_FOROS" javaType="ENTRADAS_FOROS"/>    
+    </resultMap>
+
+    <resultMap type='USUARIOS' id='UsuarioResult'>
+        <id property='email' column='email'/>
+        <result property='nombre' column='nombre'/>
+    </resultMap>
+
     
   	
 </mapper>
