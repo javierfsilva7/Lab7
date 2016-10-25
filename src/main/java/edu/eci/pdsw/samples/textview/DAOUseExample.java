@@ -16,6 +16,7 @@
  */
 package edu.eci.pdsw.samples.textview;
 
+import edu.eci.pdsw.samples.entities.Usuario;
 import edu.eci.pdsw.samples.persistence.DaoFactory;
 import edu.eci.pdsw.samples.persistence.PersistenceException;
 import java.io.IOException;
@@ -39,8 +40,17 @@ public class DAOUseExample {
         /**
          * OPERACIONES CON LOS DAO
          */
+
         //System.out.println(daof.getDaoEntradaForo().loadAll());
-        System.out.println(daof.getDaoUsuario().load("juan.perez@gmail.com"));
+
+        //System.out.println(daof.getDaoUsuario().load("juan.perez@gmail.com").getNombre());
+        
+        //daof.getDaoUsuario().save(new Usuario("ortiz.juan@gmail.com","Juan Felipe Ortiz NIñoo"));
+
+        //System.out.println(daof.getDaoUsuario().load("ortiz.juan@gmail.com").getNombre());
+        
+        System.out.println(daof.getDaoEntradaForo().load(1));
+        
         
         daof.commitTransaction();
         daof.endSession();

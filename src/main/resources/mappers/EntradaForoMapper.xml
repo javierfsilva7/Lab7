@@ -6,7 +6,7 @@
 <mapper namespace="edu.eci.pdsw.samples.persistence.mybatisimpl.mappers.EntradaForoMapper">
     
     <select id="getEntradasForo" resultMap="EntradaForoResult">
-        select ef.id, ef.fecha_hora, ef.contenido, cm.id as cm_id, cm.fecha_hora as cm_fecha_hora, cm.contenido as cm_contenido, autor.nombre as nombre, autor.email as email, autorcom.nombre as aunm_nombre,  autorcom.email as auem_email
+        select ef.id, ef.fecha_hora, ef.contenido, cm.id as cm_id, cm.fecha_hora as cm_fecha_hora, cm.contenido as cm_contenido, autor.nombre as nombre, autor.email as email, autorcom.nombre as cm_nombre,  autorcom.email as cm_email
         from ENTRADAS_FOROS as ef 
         INNER JOIN COMENTARIOS as cm ON ef.`id` = cm.`ENTRADAS_FOROS_id` 
         INNER JOIN USUARIOS as autor ON autor.email=ef.USUARIOS_email
@@ -17,21 +17,31 @@
         <id property='identificador' column='id'/>
         <result property='fechayHora' column='fecha_hora'/>
         <result property='comentario' column='contenido'/>  
-        <collection property='respuestas' ofType='Comentario' resultMap="ComentarioResult" columnPrefix="aunm_"></collection>         
-                
-
+        <association property="autor" javaType="usuario"></association>
+        <collection property='respuestas' ofType='comentario' resultMap="ComentarioResult" columnPrefix="cm_"></collection>      
     </resultMap>
 
     <resultMap type='Comentario' id='ComentarioResult'>
         <id property='id' column='cm_id'/>
         <result property='fechayHora' column='cm_fecha_hora'/>
-        <result property='contenido' column='cm_contenido'/>   
-        <association property="autor" javaType="Usuario" columnPrefix="auem_"/>  
+        <result property='contenido' column='cm_contenido'/> 
+        <association property="autor" javaType="usuario"/>    
     </resultMap>
 
-    <resultMap type='Usuario' id='UsuarioResult'>
+    <resultMap type='usuario' id='UsuarioResult'>
         <id property='email' column='email'/>
         <result property='nombre' column='nombre'/>
     </resultMap>
-        	
+    
+    <select id="getEntradaForo" resultMap="fororesult" parameterType="map">
+        select id, fecha_hora, contenido from ENTRADAS_FOROS 
+        where id=#{foroid}
+    </select>
+
+    <resultMap type='EntradaForo' id='fororesult'>
+        <id property='identificador' column='id'/>
+        <result property='fechayHora' column='fecha_hora'/>
+        <result property='comentario' column='contenido'/>  
+    </resultMap>	
+
 </mapper>

@@ -39,16 +39,16 @@ public class MyBatisDAOUsuario implements DaoUsuario{
     
     @Override
     public Usuario load(String email) throws PersistenceException {
-        UsuarioMapper e = currentSession.getMapper(UsuarioMapper.class);
-        Usuario us = e.getUsuario(email);
-        currentSession.commit();
-        return us;
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        UsuarioMapper u= currentSession.getMapper(UsuarioMapper.class);
+        Usuario usr=u.getUsuario(email);
+        return usr;
     }
 
     @Override
     public void save(Usuario p) throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        UsuarioMapper u= currentSession.getMapper(UsuarioMapper.class);
+        u.insertarUsuario(p.getEmail(), p.getNombre());
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
