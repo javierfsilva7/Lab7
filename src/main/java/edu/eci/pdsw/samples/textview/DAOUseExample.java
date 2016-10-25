@@ -16,11 +16,13 @@
  */
 package edu.eci.pdsw.samples.textview;
 
+import edu.eci.pdsw.samples.entities.Comentario;
 import edu.eci.pdsw.samples.entities.Usuario;
 import edu.eci.pdsw.samples.persistence.DaoFactory;
 import edu.eci.pdsw.samples.persistence.PersistenceException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDate;
 import java.util.Properties;
 
 /**
@@ -41,16 +43,17 @@ public class DAOUseExample {
          * OPERACIONES CON LOS DAO
          */
 
-        //System.out.println(daof.getDaoEntradaForo().loadAll());
+        System.out.println(daof.getDaoEntradaForo().loadAll());
 
         //System.out.println(daof.getDaoUsuario().load("juan.perez@gmail.com").getNombre());
         
         //daof.getDaoUsuario().save(new Usuario("ortiz.juan@gmail.com","Juan Felipe Ortiz NIñoo"));
 
         //System.out.println(daof.getDaoUsuario().load("ortiz.juan@gmail.com").getNombre());
-        
-        System.out.println(daof.getDaoEntradaForo().load(1));
-        
+        Usuario i= daof.getDaoUsuario().load("juan.perez@gmail.com");
+        Comentario c=new Comentario(i, "prueba", java.sql.Date.valueOf(LocalDate.MIN));
+        //System.out.println(daof.getDaoEntradaForo().load(1));
+        daof.getDaoEntradaForo().addToForo(3, c);
         
         daof.commitTransaction();
         daof.endSession();

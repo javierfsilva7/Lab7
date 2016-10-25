@@ -32,7 +32,7 @@ public interface EntradaForoMapper {
     
     public EntradaForo getEntradaForo(@Param("foroid") int id);
     
-    public void agregarComentarioAEntradaForo(int idEntradaForo,Comentario c);
+    public void agregarComentarioAEntradaForo(@Param("idForo")int idEntradaForo,@Param("c") Comentario c);
     
     
 }

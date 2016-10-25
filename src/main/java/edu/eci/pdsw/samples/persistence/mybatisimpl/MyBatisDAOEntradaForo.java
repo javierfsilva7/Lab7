@@ -23,6 +23,7 @@ import edu.eci.pdsw.samples.persistence.DaoEntradaForo;
 import edu.eci.pdsw.samples.persistence.PersistenceException;
 import edu.eci.pdsw.samples.persistence.mybatisimpl.mappers.EntradaForoMapper;
 import java.util.List;
+import java.util.Set;
 import org.apache.ibatis.session.SqlSession;
 
 /**
@@ -70,7 +71,9 @@ public class MyBatisDAOEntradaForo implements DaoEntradaForo{
 
     @Override
     public void addToForo(int idForo, Comentario c) throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntradaForoMapper e= currentSession.getMapper(EntradaForoMapper.class);
+        e.agregarComentarioAEntradaForo(idForo, c);
+        currentSession.commit();
     }
     
 }

@@ -43,5 +43,11 @@
         <result property='fechayHora' column='fecha_hora'/>
         <result property='comentario' column='contenido'/>  
     </resultMap>	
+    
+    <insert id="agregarComentarioAEntradaForo" parameterType="map">
+        insert into COMENTARIOS(contenido, ENTRADAS_FOROS_id, USUARIOS_email)values(#{c.contenido}, #{idForo}, #{c.autor.email})
+      
+    </insert>
+    
 
 </mapper>
